@@ -6,30 +6,27 @@ public class MazeGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject floor;
     [SerializeField] private GameObject wall;
+    [SerializeField] private GameObject TerminalPrefab;
     [SerializeField] private Transform WorldHandler;
     [SerializeField] private Vector2Int MazeSize;
     [SerializeField] [Range(1, 3)] private int MaxWeight = 2;
     [SerializeField] [Range(1, 2)] private int MinWeight = 2;
-    //[SerializeField] private GameObject[] ColleCtionObjects;
     private List<CellClass> aSet = new List<CellClass>();
     private List<CellClass> bSet = new List<CellClass>();
     
     // Start is called before the first frame update
     void Start()
     {
-        //WorldHandler.localScale = new Vector3(3, 2, 3);
-        //aSet = MazeInit(MazeSize)
+        
         aSet = MazeInit(MazeSize.x, MazeSize.y);
 
-        //loadController.SetStatusText("Filling Up set B");
         bSet = BuildMaze(MaxWeight, aSet);
-
-        //loadController.SetStatusText("Visualising maze");
         VisualMaze(bSet);
 
 
-        WorldHandler.localScale = new Vector3(3, 2, 3);
-        Vector2Int playerPos = new Vector2Int(Random.Range(0, MazeSize.x), Random.Range(0, MazeSize.y));
+        WorldHandler.localScale = new Vector3(10, 3, 10);
+        Vector2Int TerminalPos = new Vector2Int(Random.Range(30, MazeSize.x), Random.Range(30, MazeSize.y));
+        Instantiate(TerminalPrefab, new Vector3(MazeSize.x, 1, MazeSize.y), Quaternion.Euler(0, 180, 0));
     }
 
     // Update is called once per frame
